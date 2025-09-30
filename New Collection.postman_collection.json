@@ -1,0 +1,613 @@
+{
+	"info": {
+		"_postman_id": "b92866b8-8312-4fee-84e1-007df3191f88",
+		"name": "New Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38479527"
+	},
+	"item": [
+		{
+			"name": "New Folder",
+			"item": [
+				{
+					"name": "login admin",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Create Test User",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get User by ID (Verify Creation)",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Update",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Deletion",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "logout",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "refresh",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{authToken}}",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{authToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0QGV4YW1wbGUuY29tIiwiaWF0IjoxNzU3OTU0MTM0LCJleHAiOjE3NTc5NTUwMzR9.UnV2V4mFAjLdxEjsJJM72Dc6_W9TCjgNnOpwT5rhsrI\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/debug/token",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"debug",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all user",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "get user by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Проверяем успешный запрос\r",
+							"pm.test(\"Get user by ID successful\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.response.to.have.jsonBody('success', true);\r",
+							"    pm.response.to.have.jsonBody('user');\r",
+							"});\r",
+							"\r",
+							"// Сохраняем ID пользователя для тестов\r",
+							"if (pm.response.code === 200) {\r",
+							"    const response = pm.response.json();\r",
+							"    pm.environment.set(\"testUserId\", response.user.id);\r",
+							"    console.log(\"✅ Test user ID saved:\", response.user.id);\r",
+							"}\r",
+							"\r",
+							"// Логируем информацию\r",
+							"console.log(\"Response:\", pm.response.json());"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{authToken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/api/users/2",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "reg",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "user me",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{authToken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/api/auth/me",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"me"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "admin login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Проверяем успешный вход\r",
+							"if (pm.response.code === 200) {\r",
+							"    const response = pm.response.json();\r",
+							"    \r",
+							"    // Сохраняем токены в Environment Variables\r",
+							"    pm.environment.set(\"authToken\", response.token);\r",
+							"    pm.environment.set(\"refreshToken\", response.refreshToken);\r",
+							"    pm.environment.set(\"userId\", response.user.id);\r",
+							"    pm.environment.set(\"userEmail\", response.user.email);\r",
+							"    \r",
+							"    // Выводим в консоль для проверки\r",
+							"    console.log(\"✅ Admin token saved to environment\");\r",
+							"    console.log(\"Token:\", response.token);\r",
+							"    console.log(\"User ID:\", response.user.id);\r",
+							"    console.log(\"Email:\", response.user.email);\r",
+							"}\r",
+							"\r",
+							"// Стандартные проверки\r",
+							"pm.test(\"Login successful\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.response.to.have.jsonBody('success', true);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"admin@example.com\",\r\n    \"password\": \"Admin123!\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create User (Admin only)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Проверяем успешное создание\r",
+							"pm.test(\"Create user successful\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"    pm.response.to.have.jsonBody('success', true);\r",
+							"    pm.response.to.have.jsonBody('user');\r",
+							"});\r",
+							"\r",
+							"// Сохраняем ID созданного пользователя\r",
+							"if (pm.response.code === 201) {\r",
+							"    const response = pm.response.json();\r",
+							"    pm.environment.set(\"createdUserId\", response.user.id);\r",
+							"    console.log(\"✅ New user created with ID:\", response.user.id);\r",
+							"    console.log(\"User details:\", response.user);\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{authToken}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"newuser\",\r\n    \"email\": \"newuser@example.com\",\r\n    \"password\": \"Password123!\",\r\n    \"role\": \"user\",\r\n    \"isActive\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/users",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update User (Admin only)",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Delete User (Admin only)",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "get all products",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Get product by id",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Get products Electronics filter",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Get products mix-max price",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "GET products phone",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "GEt produtsc electr minprice",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Create Product",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Update Product",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Create Order",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Get User Orders",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// 👤 User Orders Tests\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns user orders successfully\", function () {\r",
+							"    const response = pm.response.json();\r",
+							"    pm.expect(response.success).to.be.true;\r",
+							"    pm.expect(response).to.have.property('orders');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Using user token for authorization\", function () {\r",
+							"    const authHeader = pm.request.headers.get(\"Authorization\");\r",
+							"    const userToken = pm.environment.get(\"user_authToken\");\r",
+							"    \r",
+							"    pm.expect(authHeader).to.include(`Bearer ${userToken}`);\r",
+							"    console.log(\"✅ Using user token for user-specific endpoint\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{authToken}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5000/api/orders/my-orders",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"orders",
+						"my-orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Data-driven User Creation",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Cleanup Test Users:",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					"// 🔐 Automatic Authorization for all requests\r",
+					"console.log(\"🔐 Pre-request Script: Setting up authorization...\");\r",
+					"\r",
+					"// Пропускаем auth endpoints\r",
+					"const authEndpoints = ['/api/auth/login', '/api/auth/register', '/api/auth/refresh'];\r",
+					"const currentUrl = pm.request.url.toString();\r",
+					"\r",
+					"if (authEndpoints.some(endpoint => currentUrl.includes(endpoint))) {\r",
+					"    console.log(\"🔓 Skipping authorization for auth endpoint\");\r",
+					"    return;\r",
+					"}\r",
+					"\r",
+					"// Пробуем получить токен (user или admin)\r",
+					"let token = pm.environment.get(\"user_authToken\") || pm.environment.get(\"authToken\");\r",
+					"\r",
+					"if (token) {\r",
+					"    console.log(\"✅ Token found, adding Authorization header\");\r",
+					"    \r",
+					"    // Удаляем старый Authorization header\r",
+					"    pm.request.headers.remove(\"Authorization\");\r",
+					"    \r",
+					"    // Добавляем новый\r",
+					"    pm.request.headers.add({\r",
+					"        key: \"Authorization\",\r",
+					"        value: `Bearer ${token}`\r",
+					"    });\r",
+					"} else {\r",
+					"    console.log(\"❌ No auth token found - please login first\");\r",
+					"}"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "authToken",
+			"value": ""
+		},
+		{
+			"key": "refreshToken",
+			"value": ""
+		},
+		{
+			"key": "userId",
+			"value": ""
+		},
+		{
+			"key": "admin_email",
+			"value": ""
+		},
+		{
+			"key": "admin_password",
+			"value": ""
+		},
+		{
+			"key": "timeout",
+			"value": ""
+		},
+		{
+			"value": ""
+		},
+		{
+			"key": "test_data",
+			"value": ""
+		},
+		{
+			"key": "created_users",
+			"value": ""
+		},
+		{
+			"key": "user_id",
+			"value": ""
+		}
+	]
+}
