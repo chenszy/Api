@@ -1,0 +1,23 @@
+[
+  {
+    "username": "testjohn",
+    "email": "testjohn@example.com",
+    "password": "Test123!",
+    "role": "user",
+    "expected_status": 201
+  },
+  {
+    "username": "testjane",
+    "email": "testjane@example.com",
+    "password": "Test456!",
+    "role": "user",
+    "expected_status": 201
+  },
+  {
+    "username": "short",
+    "email": "short@example.com",
+    "password": "123",
+    "role": "user",
+    "expected_status": 400
+  }
+]

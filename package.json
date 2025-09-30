@@ -1,0 +1,29 @@
+{
+  "name": "auth-system-sqlite",
+  "version": "1.0.0",
+  "description": "Authentication system with SQLite",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "seed": "node database/create-admin.js",
+    "seed-products": "node database/seed-products.js",
+    "reset-db": "rm -f database/auth.db && npm run dev",
+    "fresh-start": "rm -f database/auth.db && npm run dev && npm run seed"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.2",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
+    "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
+
